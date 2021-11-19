@@ -7,7 +7,13 @@ exports.findAll = function (req, res) {
   });
 };
 
-exports.findById = function () {};
+exports.findById = (req, res) => {
+  const id = req.params.id;
+  Recipe.findOne({ _id: id }, (err, json) => {
+    if (err) return console.log(err);
+    return res.send(json);
+  });
+};
 
 exports.add = function (req, res) {
   Recipe.create(req.body, function (err, recipe) {
@@ -16,8 +22,21 @@ exports.add = function (req, res) {
   });
 };
 
-exports.update = function () {};
-exports.delete = function () {};
+exports.update = function (req, res) {
+  console.log(req.body);
+  const id = req.params.id;
+  Recipe.findByIdAndUpdate(id, req.body, { new: true }, (err, response) => {
+    if (err) return console.log(err);
+    res.send(response);
+  });
+};
+
+exports.delete = function (req, res) {
+  let id = req.params.id;
+  Recipe.deleteOne({ _id: id }, () => {
+    return res.sendStatus(202);
+  });
+};
 
 exports.import = function (req, res) {
   Recipe.create(

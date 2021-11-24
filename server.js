@@ -1,14 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const fileUpload = require('express-fileupload')
+require("dotenv").config();
 
 const recipeModel = require("./api/recipe.model");
 const recipeControllers = require("./api/recipe.controllers");
 
 const app = express();
 
-// const dataBaseURL = process.env.DB_URL || "mongodb://localhost:27017";
-const dataBaseURL = "mongodb+srv://daniel:dd2345@recipescluster.anocj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const dataBaseURL = process.env.DATABASE || "mongodb://localhost:27017";
+// const dataBaseURL = "mongodb://localhost:27017";
+// const dataBaseURL = "mongodb+srv://daniel:dd2345@recipescluster.anocj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 mongoose
   .connect(dataBaseURL, { useNewUrlParser: true })

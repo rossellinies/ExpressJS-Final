@@ -8,9 +8,10 @@ function getRecipes() {
 
 function addRecipe(event) {
   event.preventDefault();
-  const { title, image, year, description } = event.target;
+  const { title, author, image, year, description } = event.target;
   const recipe = {
     title: title.value,
+    author: author.value,
     image: image.value,
     year: year.value,
     description: description.value,
@@ -29,11 +30,12 @@ function addRecipe(event) {
 function renderRecipes(recipes) {
   recipes.forEach((recipe) => {
     // destructure
-    const { _id, title, image, year, description } = recipe;
+    const { _id, title, author, image, year, description } = recipe;
     recipeEl = document.createElement("div");
     recipeEl.innerHTML = `
     <img src="img/${image}" />
     <h3><a href="detail.html?recipe=${_id}">${title}</a></h3>
+    <h4>${author === undefined ? "Author" : author}</h4>
     <p>${description}</p>
     <p>${year}</p>
     <button class="delete" data-id=${_id} href="#">Delete</button>
